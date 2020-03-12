@@ -16,7 +16,7 @@ export class AppComponent {
   title = 'toDo-ngrx';
   constructor(private store: Store<AppState>) {
     this.message$ = this.store.select('message');
-  }
+  } 
   spanishMessage() {
     this.store.dispatch({
       type:'SPANISH'
