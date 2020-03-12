@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable }  from 'rxjs';
-
+import { Post } from './models/post.model';
+import * as PostActions from './actions/post.actions';
 interface AppState {
-  message: string;
+  post: Post;
 }
 
 @Component({
@@ -12,19 +13,26 @@ interface AppState {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  message$: Observable<string>
-  title = 'toDo-ngrx';
+  post: Observable<Post>
+  text: string; // form input value
+  
   constructor(private store: Store<AppState>) {
-    this.message$ = this.store.select('message');
+    this.post = this.store.select('post');
   }
-  spanishMessage() {
-    this.store.dispatch({
-      type:'SPANISH'
-    })
+
+  editText() {
+    this.store.dispatch(new PostActions.EditText(this.text));
   }
-  frenchMessage() {
-    this.store.dispatch({
-      type:'FRENCH'
-    })
+
+  resetPost() {
+    this.store.dispatch(new PostActions.Reset());
+  }
+
+  upvote() {
+    this.store.dispatch(new PostActions.Upvote());
+  }
+
+  downvote() {
+    this.store.dispatch(new PostActions.Downvote());
   }
 }
