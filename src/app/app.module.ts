@@ -7,7 +7,9 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { simpleReducer } from './reducers/simple.reducer';
 import { postReducer } from './reducers/post.reducer';
-
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent
@@ -16,6 +18,8 @@ import { postReducer } from './reducers/post.reducer';
     FormsModule,
     BrowserModule,
     AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
     StoreModule.forRoot({
       post: postReducer,
       message: simpleReducer
